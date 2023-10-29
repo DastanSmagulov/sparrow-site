@@ -7,17 +7,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 let dataString, dataJson;
+if (typeof window !== "undefined") {
+  dataString = localStorage.getItem("personalData");
+  dataJson = JSON.parse(dataString);
+}
 
 const UserImage = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      dataString = localStorage.getItem("personalData");
-      dataJson = JSON.parse(dataString);
-      setData(dataJson);
-    }
+    setData(dataJson);
   }, []);
-
   return (
     <div className="dropdown dropdown-bottom dropdown-end mt-5">
       <label

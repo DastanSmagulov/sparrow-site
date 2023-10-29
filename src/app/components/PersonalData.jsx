@@ -100,7 +100,6 @@ const PersonalData = () => {
           <h3 className="mb-1">Номер карты</h3>
         </div>
         <div className="text-[#112D48] text-xs font-light text-right">
-          {console.log(data?.photo)}
           {data?.photo && (
             <Image
               className="float-right rounded-full"
@@ -113,7 +112,11 @@ const PersonalData = () => {
           <h3 className="mb-1 mt-7">login</h3>
           <h3 className="mb-1">{data?.first_name}</h3>
           <h3 className="mb-1">{data?.last_name}</h3>
-          <h3 className="mb-1">{data?.birth_date}</h3>
+          <h3 className="mb-1">
+            {new Date(data?.birth_date)
+              .toLocaleDateString("en-GB")
+              .replace(/\//g, ".")}
+          </h3>
           <h3 className="mb-1">{data?.phone_number}</h3>
           <h3 className="mb-1">{data?.email}</h3>
           <h3 className="mb-1">{"**** " + data?.card_number?.substring(12)}</h3>
