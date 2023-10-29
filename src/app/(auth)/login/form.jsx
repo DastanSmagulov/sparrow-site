@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../../components/ui/button";
 import "../../globals.css";
+let key;
 
 export const Form = () => {
   const router = useRouter();
@@ -21,16 +22,18 @@ export const Form = () => {
       body: JSON.stringify({ email, password }),
     });
     if (response.ok) {
-      const key = await response.json();
+      const keyObject = await response.json();
       if (typeof window !== "undefined") {
-        localStorage.setItem("key", key.key);
+        localStorage.setItem("key", keyObject.key);
       }
+      key = keyObject.key;
       router.push("/dashboard");
     } else {
       const errorData = await response.json();
       console.error(errorData.message);
       setShowAlert(true);
     }
+    fetchData();
   };
 
   const fetchData = async () => {
@@ -44,20 +47,14 @@ export const Form = () => {
       });
       if (response.ok) {
         const id = await response.json();
-        {
-          typeof window !== "undefined"
-            ? localStorage.setItem("id", id.pk)
-            : null;
-        }
+        typeof window !== "undefined"
+          ? localStorage.setItem("id", id.pk)
+          : null;
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <form onSubmit={handleLogin} className="space-y-12 w-full sm:w-[550px]">

@@ -111,7 +111,7 @@ const Watchlist = () => {
             className="flex border-black border-solid border-1 py-1 px-1 justify-center align-center mt-2 text-xs font-normal rounded-2xl bg-[#B8F82F]"
             onClick={() => {
               if (typeof window !== "undefined") {
-                document.getElementById("my_modal2").showModal();
+                document.getElementById("my_modal2")?.showModal();
               }
             }}
           >
@@ -148,7 +148,7 @@ const Watchlist = () => {
   }
 
   return (
-    <div className="rounded-lg bg-white py-7 px-8 mr-3 w-3/6 h-[450px]">
+    <div className="rounded-lg bg-white py-7 px-8 w-3/6 h-[450px]">
       <div className="flex justify-between">
         <div className="flex">
           <div className="bg-[#B8F82F] w-10 h-7 rounded-sm flex items-center mb-2">
@@ -200,7 +200,7 @@ const Watchlist = () => {
                     watchList.percent < 0 ? "text-[#FB3F73]" : "text-[#19C20A]"
                   }
                 >
-                  {parseFloat(watchList.percent?.toFixed(2))}
+                  {parseFloat(watchList.percent?.toFixed(2)) * 100} %
                 </td>
                 <td>{parseFloat(watchList.volume.toFixed(2))}</td>
                 <td>{parseFloat(watchList.capitalization?.toFixed(2))}</td>

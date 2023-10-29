@@ -13,6 +13,8 @@ let key, id;
 const ActivePositions = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [ticker, setTicker] = useState("");
+  const [tickerInput, setTickerInput] = useState("");
+
   const [open_price, setOpenPrice] = useState("");
   const [amount, setAmount] = useState("");
   const [position, setPosition] = useState("");
@@ -258,7 +260,7 @@ const ActivePositions = () => {
                 <td>{parseFloat(active.current_price.toFixed(2))}</td>
                 <td>{parseFloat(active.amount.toFixed(2))}</td>
                 <td>{parseFloat(active.sum.toFixed(2))}</td>
-                <td>{parseFloat(active.share.toFixed(2))}</td>
+                <td>{parseFloat((active.share * 100).toFixed(2))} %</td>
                 <td>{active.position}</td>
                 <td
                   className={
@@ -288,6 +290,7 @@ const ActivePositions = () => {
                     className="rounded-2xl flex bg-[#FB3F73] py-1 px-2 text-white font-normal text-xs	"
                     onClick={() => {
                       setDeleteId(active.id);
+                      setTickerInput(active.ticker);
                       if (typeof window !== "undefined") {
                         document.getElementById("close_modal").showModal();
                       }
@@ -459,6 +462,7 @@ const ActivePositions = () => {
             <div className="text-[#112D48] text-base font-light text-right">
               <input
                 className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                value={tickerInput}
                 onChange={(e) => setTicker(e.target.value.replace(/,/g, "."))}
               ></input>
               <input
@@ -473,6 +477,7 @@ const ActivePositions = () => {
               ></input>
               <input
                 className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                value={close_price * amount}
                 onChange={(e) => setSum(e.target.value.replace(/,/g, "."))}
               ></input>
             </div>
@@ -484,6 +489,8 @@ const ActivePositions = () => {
               if (typeof window !== "undefined") {
                 document.getElementById("close_modal").close();
               }
+              setClosePrice("");
+              setAmount("");
             }}
           >
             <Image src={Plus} alt="person" width={25} />

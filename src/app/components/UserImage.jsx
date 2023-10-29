@@ -27,13 +27,15 @@ const UserImage = () => {
         <h2 className="mt-2 mr-2">{`${
           data?.first_name
         } ${data?.last_name?.charAt(0)}.`}</h2>
-        <Image
-          className="rounded-full"
-          src={data?.photo}
-          width={50}
-          height={50}
-          alt="avatar"
-        ></Image>
+        {data?.photo && (
+          <Image
+            className="rounded-full"
+            src={data?.photo}
+            width={50}
+            height={50}
+            alt="avatar"
+          ></Image>
+        )}
         <Image src={Arrow} alt="arrow-down" className="ml-2" />
       </label>
       <ul

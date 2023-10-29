@@ -75,11 +75,11 @@ const PieChartActive = () => {
         style={{ width: "300px", height: "300px" }}
       ></div>
       <h1
-        className={`absolute left-[40%] bottom-[40%] text-2xl font-bold z-50 ${
+        className={`absolute left-[40%] bottom-[43%] text-2xl font-bold z-50 ${
           parseFloat(Number(sumResult).toFixed(2)) < 0
             ? "text-red-500"
             : "text-green-500"
-        }`}
+        } ${parseFloat(Number(sumResult).toFixed(2)) == 0 ? "hidden" : null}`}
       >
         {parseFloat(Number(sumResult).toFixed(2))}
       </h1>

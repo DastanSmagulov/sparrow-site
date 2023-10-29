@@ -62,37 +62,39 @@ const History = () => {
             </tr>
           </thead>
           <tbody className="text-sm font-normal text-center">
-            {data?.map((histor) => (
-              <tr key={histor.id}>
-                <td className="pr-2">{histor.ticker}</td>
-                <td>
-                  {new Date(histor.open_date)
-                    .toLocaleDateString("en-GB")
-                    .replace(/\//g, ".")}
-                </td>
-                <td>{parseFloat(histor.open_price.toFixed(2))}</td>
-                <td>
-                  {new Date(histor.close_date)
-                    .toLocaleDateString("en-GB")
-                    .replace(/\//g, ".")}
-                </td>
-                <td>{parseFloat(histor.close_price.toFixed(2))}</td>{" "}
-                <td
-                  className={
-                    histor.result < 0 ? "text-[#FB3F73]" : "text-[#19C20A]"
-                  }
-                >
-                  {parseFloat(histor.result.toFixed(2))}
-                </td>
-                <td
-                  className={
-                    histor.percent < 0 ? "text-[#FB3F73]" : "text-[#19C20A]"
-                  }
-                >
-                  {parseFloat(histor.percent.toFixed(2))}
-                </td>
-              </tr>
-            ))}
+            {data
+              ?.map((histor) => (
+                <tr key={histor.id}>
+                  <td className="pr-2">{histor.ticker}</td>
+                  <td>
+                    {new Date(histor.open_date)
+                      .toLocaleDateString("en-GB")
+                      .replace(/\//g, ".")}
+                  </td>
+                  <td>{parseFloat(histor.open_price.toFixed(2))}</td>
+                  <td>
+                    {new Date(histor.close_date)
+                      .toLocaleDateString("en-GB")
+                      .replace(/\//g, ".")}
+                  </td>
+                  <td>{parseFloat(histor.close_price.toFixed(2))}</td>{" "}
+                  <td
+                    className={
+                      histor.result < 0 ? "text-[#FB3F73]" : "text-[#19C20A]"
+                    }
+                  >
+                    {parseFloat(histor.result.toFixed(2))}
+                  </td>
+                  <td
+                    className={
+                      histor.percent < 0 ? "text-[#FB3F73]" : "text-[#19C20A]"
+                    }
+                  >
+                    {parseFloat(histor.percent.toFixed(2))}
+                  </td>
+                </tr>
+              ))
+              .reverse()}
           </tbody>
         </table>
       </div>
