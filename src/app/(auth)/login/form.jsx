@@ -33,6 +33,32 @@ export const Form = () => {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1/auth/user/", {
+        method: "GET",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: "Token " + key,
+        },
+      });
+      if (response.ok) {
+        const id = await response.json();
+        {
+          typeof window !== "undefined"
+            ? localStorage.setItem("id", id.pk)
+            : null;
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <form onSubmit={handleLogin} className="space-y-12 w-full sm:w-[550px]">
       <div className="grid w-full items-center mt-9">
@@ -51,7 +77,7 @@ export const Form = () => {
         <label htmlFor="password"></label>
         <input
           className="w-full py-3 rounded-lg pl-5"
-          placeholder="Придумайте пароль"
+          placeholder="Введите пароль"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -63,8 +89,7 @@ export const Form = () => {
         <div className="p-2 mt-5 rounded bg-red-200">Invalid Credentials</div>
       )}
       <div className="float-right pt-16">
-        <Button type="submit">Войти</Button>{" "}
-        {/* Use type="submit" for the login button */}
+        <Button type="submit">Войти</Button>
       </div>
     </form>
   );

@@ -22,6 +22,7 @@ const PieChartActive = () => {
       setData(dataJson);
     }
   }, []);
+
   useEffect(() => {
     // Themes begin
     am4core.useTheme(am4themes_animated);
@@ -57,7 +58,8 @@ const PieChartActive = () => {
       am4core.color("#C2F44D"),
       // Add more custom colors here
     ];
-  }, []);
+  });
+
   return (
     <div className="relative rounded-lg bg-white pt-4 px-5 ml-3 w-1/4 h-[370px]">
       <div className="flex">

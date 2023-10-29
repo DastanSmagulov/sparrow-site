@@ -90,12 +90,15 @@ const Watchlist = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    document.getElementById("my_modal2").close();
+
+    if (typeof window !== "undefined") {
+      document.getElementById("my_modal2").close();
+    }
   };
 
   if (loading) {
     return (
-      <div className="rounded-lg bg-white py-7 px-8 mr-3 w-full">
+      <div className="rounded-lg bg-white py-7 px-8 mr-3 w-full h-[450px]">
         <div className="flex justify-between">
           <div className="flex">
             <div className="bg-[#B8F82F] w-10 h-7 rounded-sm flex items-center mb-2">
@@ -106,7 +109,11 @@ const Watchlist = () => {
           </div>
           <button
             className="flex border-black border-solid border-1 py-1 px-1 justify-center align-center mt-2 text-xs font-normal rounded-2xl bg-[#B8F82F]"
-            onClick={() => document.getElementById("my_modal2").showModal()}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                document.getElementById("my_modal2").showModal();
+              }
+            }}
           >
             <Image src={Plus} alt="person" className="" />
             <h2 className="mt-px ml-1 mt-0.5">Добавить бумагу</h2>
@@ -141,7 +148,7 @@ const Watchlist = () => {
   }
 
   return (
-    <div className="rounded-lg bg-white py-7 px-8 mr-3 w-3/6">
+    <div className="rounded-lg bg-white py-7 px-8 mr-3 w-3/6 h-[450px]">
       <div className="flex justify-between">
         <div className="flex">
           <div className="bg-[#B8F82F] w-10 h-7 rounded-sm flex items-center mb-2">
@@ -152,7 +159,11 @@ const Watchlist = () => {
         </div>
         <button
           className="flex border-black border-solid border-1 py-1 px-1 justify-center align-center mt-2 text-xs font-normal rounded-2xl bg-[#B8F82F]"
-          onClick={() => document.getElementById("my_modal2").showModal()}
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              document.getElementById("my_modal2").showModal();
+            }
+          }}
         >
           <Image src={Plus} alt="person" className="" />
           <h2 className="mt-px ml-1 mt-0.5">Добавить бумагу</h2>
@@ -198,7 +209,9 @@ const Watchlist = () => {
                     className="rounded-2xl flex bg-[#FB3F73] py-1 px-2 text-white font-normal text-xs	"
                     onClick={() => {
                       setDeleteId(watchList.id);
-                      document.getElementById("modal_close").showModal();
+                      if (typeof window !== "undefined") {
+                        document.getElementById("modal_close").showModal();
+                      }
                     }}
                   >
                     <Image src={Cross} className="mr-1" alt="plus"></Image>
@@ -282,7 +295,9 @@ const Watchlist = () => {
             className="flex border-black border-solid border-1 py-[6px] px-4 justify-center mx-auto border-solid border-black mt-2 text-base font-semibold rounded-2xl text-[#112D48] bg-[#FB3F73]"
             onClick={() => {
               closeWatchList(deleteId);
-              document.getElementById("modal_close").close();
+              if (typeof window !== "undefined") {
+                document.getElementById("modal_close").close();
+              }
             }}
           >
             <Image src={Plus} alt="person" width={25} />

@@ -9,6 +9,7 @@ import History from "../components/History";
 import Arrow from "@/assets/arrow";
 import UserImage from "../components/UserImage";
 import Dynamics_Subscription from "../components/Dynamics_Subscription";
+import UserInvest from "../components/UserImage";
 
 export default function Account_Subscription() {
   return (

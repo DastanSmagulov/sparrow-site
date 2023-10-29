@@ -8,6 +8,7 @@ import Watchers from "../components/Watchers";
 import Dynamics from "../components/Dynamics";
 import History from "../components/History";
 import UserImage from "../components/UserImage";
+import UserInvest from "../components/UserImage";
 
 export default function Account() {
   return (

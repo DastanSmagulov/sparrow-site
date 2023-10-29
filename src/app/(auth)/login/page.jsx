@@ -26,7 +26,7 @@ export default function Page() {
       </div>
       <div className="sm:shadow-xl pl-20 sm:bg-[#ECE6E1] w-3/6 pt-52">
         <h1 className="font-semibold text-lg font-medium">
-          Введите свои данные, для прохождения регистрации
+          Введите свои данные, для входа в систему
         </h1>
         <Form />
         <p className="mt-5 mb-2">Создать учетную запись</p>

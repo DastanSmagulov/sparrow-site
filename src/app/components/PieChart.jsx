@@ -20,21 +20,20 @@ const PieChart = () => {
       dataJson = JSON.parse(dataString);
       setData(dataJson);
     }
+    // Themes begin
   }, []);
 
   useEffect(() => {
-    // Themes begin
     am4core.useTheme(am4themes_animated);
     // Themes end
 
     let chart = am4core.create("chartdiv", am4charts.PieChart3D);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    const chartData = data?.map((data) => ({
-      country: data.sector,
-      litres: data.share,
+    const chartData = data?.map((el) => ({
+      country: el.sector,
+      litres: el.share,
     }));
-
     chart.data = chartData;
 
     chart.innerRadius = 80;
@@ -45,10 +44,6 @@ const PieChart = () => {
 
     // Hide data labels
     series.labels.template.disabled = true;
-    // series.labels.template.disabled = false;
-    // series.labels.template.margin = "20px";
-    // series.labels.template.valign = "middle";
-    // series.labels.template.fontSize = 10;
 
     // Hide legend
     chart.legend = new am4charts.Legend();
@@ -63,7 +58,7 @@ const PieChart = () => {
       am4core.color("#7350F5"),
       // Add more custom colors here
     ];
-  }, []);
+  });
 
   return (
     <div className="relative rounded-lg bg-white pt-4 px-5 w-1/4 h-[370px]">

@@ -6,9 +6,9 @@ import Exit from "@/assets/exit";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-let dataString, dataJson
+let dataString, dataJson;
 
-const UserInvest = () => {
+const UserImage = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -17,6 +17,7 @@ const UserInvest = () => {
       setData(dataJson);
     }
   }, []);
+
   return (
     <div className="dropdown dropdown-bottom dropdown-end mt-5">
       <label
@@ -28,7 +29,7 @@ const UserInvest = () => {
         } ${data?.last_name?.charAt(0)}.`}</h2>
         <Image
           className="rounded-full"
-          src={dataJson?.photo}
+          src={data?.photo}
           width={50}
           height={50}
           alt="avatar"
@@ -52,4 +53,4 @@ const UserInvest = () => {
   );
 };
 
-export default UserInvest;
+export default UserImage;
