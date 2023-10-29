@@ -2,25 +2,31 @@
 import Person from "@/assets/person";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+let key;
+let id;
 
 const PersonalData = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      key = localStorage.getItem("key");
+      id = localStorage.getItem("id");
+    }
+  }, []);
+
+  useEffect(() => {
     // Fetch example
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://127.0.0.1/traider/${localStorage.getItem("id")}`,
-          {
-            method: "GET",
-            headers: {
-              // "Content-Type": "application/json",
-              Authorization: "Token " + localStorage.getItem("key"),
-            },
-          }
-        );
+        const response = await fetch(`http://127.0.0.1/traider/${id}`, {
+          method: "GET",
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: "Token " + key,
+          },
+        });
         setLoading(false);
         const result = await response.json();
         setData(result);
@@ -66,7 +72,9 @@ const PersonalData = () => {
             <h3 className="mb-1">Loading...</h3>
           </div>
         </div>
-        {localStorage.setItem("personalData", JSON.stringify(data))}
+        {typeof window !== "undefined"
+          ? localStorage.setItem("personalData", JSON.stringify(data))
+          : null}
       </div>
     );
   }
@@ -108,7 +116,9 @@ const PersonalData = () => {
           <h3 className="mb-1">{"**** " + data?.card_number?.substring(12)}</h3>
         </div>
       </div>
-      {localStorage.setItem("personalData", JSON.stringify(data))}
+      {typeof window !== "undefined"
+        ? localStorage.setItem("personalData", JSON.stringify(data))
+        : null}
     </div>
   );
 };

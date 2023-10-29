@@ -2,22 +2,31 @@
 import Image from "next/image";
 import History_Icon from "@/assets/history";
 import "../../app/globals.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDebugValue } from "react";
+let key;
+let id;
 
 const History = () => {
   const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      key = localStorage.getItem("key");
+      id = localStorage.getItem("id");
+    }
+  }, []);
 
   useEffect(() => {
     // Fetch example
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1/traider/${localStorage.getItem("id")}/history/`,
+          `http://127.0.0.1/traider/${id}/history/`,
           {
             method: "GET",
             headers: {
               // "Content-Type": "application/json",
-              Authorization: "Token " + localStorage.getItem("key"),
+              Authorization: "Token " + key,
             },
           }
         );

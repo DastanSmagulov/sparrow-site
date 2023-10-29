@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import UserInvest from "../components/UserInvest";
 import Logo from "../../assets/logo";

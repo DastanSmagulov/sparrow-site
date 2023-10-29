@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import PersonalData from "../components/PersonalData";
 import Statistics from "../components/Statistics";
@@ -6,7 +7,6 @@ import Logo from "../../assets/logo";
 import Watchers from "../components/Watchers";
 import Dynamics from "../components/Dynamics";
 import History from "../components/History";
-import Arrow from "@/assets/arrow";
 import UserImage from "../components/UserImage";
 
 export default function Account() {

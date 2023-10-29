@@ -4,14 +4,19 @@ import Arrow from "@/assets/arrow";
 import userIcon from "@/assets/userIcon";
 import Exit from "@/assets/exit";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const dataString = localStorage.getItem("personalData");
-
-const dataJson = JSON.parse(dataString);
-
-console.log(dataJson);
+let dataString, dataJson
 
 const UserInvest = () => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      dataString = localStorage.getItem("personalData");
+      dataJson = JSON.parse(dataString);
+      setData(dataJson);
+    }
+  }, []);
   return (
     <div className="dropdown dropdown-bottom dropdown-end mt-5">
       <label
@@ -19,8 +24,8 @@ const UserInvest = () => {
         className="text-black flex text-lg font-montserrat pl-5 pr-5"
       >
         <h2 className="mt-2 mr-2">{`${
-          dataJson?.first_name
-        } ${dataJson?.last_name?.charAt(0)}.`}</h2>
+          data?.first_name
+        } ${data?.last_name?.charAt(0)}.`}</h2>
         <Image
           className="rounded-full"
           src={dataJson?.photo}

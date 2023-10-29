@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import PersonalData from "../components/PersonalData";
 import Statistics from "../components/Statistics";

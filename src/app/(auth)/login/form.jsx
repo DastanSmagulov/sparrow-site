@@ -22,8 +22,9 @@ export const Form = () => {
     });
     if (response.ok) {
       const key = await response.json();
-      localStorage.setItem("key", key.key);
-      console.log(localStorage.getItem("key"));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("key", key.key);
+      }
       router.push("/dashboard");
     } else {
       const errorData = await response.json();

@@ -8,6 +8,8 @@ import Plus from "@/assets/plus";
 import Cross from "@/assets/cross";
 import BriefCase from "@/assets/briefcase";
 
+let key, id;
+
 const ActivePositions = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [ticker, setTicker] = useState("");
@@ -23,6 +25,13 @@ const ActivePositions = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      key = localStorage.getItem("key");
+      id = localStorage.getItem("id");
+    }
+  }, []);
+
   // Fetch example
   const fetchData = async (e) => {
     try {
@@ -33,7 +42,7 @@ const ActivePositions = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Token " + localStorage.getItem("key"),
+            Authorization: "Token " + key,
           },
           body: JSON.stringify({
             ticker,
@@ -46,9 +55,6 @@ const ActivePositions = () => {
           }),
         }
       );
-      const updatedSumResult =
-        parseFloat(localStorage.getItem("sumResult")) + parseFloat(sum);
-      localStorage.setItem("sumResult", updatedSumResult);
       const result = await response.json();
       fetchActivePositions();
     } catch (error) {
@@ -59,14 +65,12 @@ const ActivePositions = () => {
   const fetchActivePositions = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1/traider/${localStorage.getItem(
-          "id"
-        )}/active-positions/`,
+        `http://127.0.0.1/traider/${id}/active-positions/`,
         {
           method: "GET",
           headers: {
             // "Content-Type": "application/json",
-            Authorization: "Token " + localStorage.getItem("key"),
+            Authorization: "Token " + key,
           },
         }
       );
@@ -109,9 +113,6 @@ const ActivePositions = () => {
           }),
         }
       );
-      const updatedSumResult =
-        parseFloat(localStorage.getItem("sumResult")) - parseFloat(sum);
-      localStorage.setItem("sumResult", updatedSumResult);
       fetchActivePositions();
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -232,15 +233,15 @@ const ActivePositions = () => {
           <tbody className="text-sm font-normal text-center border-dotted border-[#2E00B7] border-t-2">
             {data?.map((active) => (
               <tr key={active.id}>
-                <div className="hidden">{(sumSum = sumSum + active.sum)}</div>
-                <div className="hidden">{count++}</div>
-                <div className="hidden">
+                <span className="hidden">{(sumSum = sumSum + active.sum)}</span>
+                <span className="hidden">{count++}</span>
+                <span className="hidden">
                   {(percentSum = percentSum + active.percent_value)}
-                </div>{" "}
-                <div className="hidden">
+                </span>{" "}
+                <span className="hidden">
                   {resultArray.push(active.result)}
                   {(result = result + active.result)}
-                </div>
+                </span>
                 <td className="pr-2">{active.ticker}</td>
                 <td>{parseFloat(active.open_price.toFixed(2))}</td>
                 <td>{parseFloat(active.current_price.toFixed(2))}</td>
@@ -305,11 +306,19 @@ const ActivePositions = () => {
             </td>
             <td className={result < 0 ? "text-[#FB3F73]" : "text-[#19C20A]"}>
               {parseFloat(result.toFixed(2))}
-              {localStorage.setItem("sumResult", result)}
+              {typeof window !== "undefined"
+                ? localStorage.setItem("sumResult", result)
+                : null}
             </td>
-            {localStorage.setItem("resultArray", JSON.stringify(resultArray))}
-            {localStorage.setItem("sectorArray", JSON.stringify(sectorArray))}
-            {localStorage.setItem("data", JSON.stringify(data))}
+            {typeof window !== "undefined"
+              ? localStorage.setItem("resultArray", JSON.stringify(resultArray))
+              : null}
+            {typeof window !== "undefined"
+              ? localStorage.setItem("sectorArray", JSON.stringify(sectorArray))
+              : null}
+            {typeof window !== "undefined"
+              ? localStorage.setItem("data", JSON.stringify(data))
+              : null}
             <td></td>
             <td></td>
             <td></td>

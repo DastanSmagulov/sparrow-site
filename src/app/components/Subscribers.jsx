@@ -1,3 +1,4 @@
+"use client";
 import GreenLine from "@/assets/greenLine";
 import Grid from "@/assets/grid";
 import Subscribers_Logo from "@/assets/subscribers_logo";

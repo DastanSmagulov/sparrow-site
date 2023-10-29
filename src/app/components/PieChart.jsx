@@ -1,7 +1,7 @@
 /* Imports */
 "use client";
 /* Imports */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -9,11 +9,19 @@ import Person from "@/assets/person";
 import Image from "next/image";
 import PieChartLogo from "@/assets/PieChartLogo";
 
-const dataString = localStorage.getItem("data");
-
-const dataJson = JSON.parse(dataString);
+let dataString, dataJson;
 
 const PieChart = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      dataString = localStorage.getItem("data");
+      dataJson = JSON.parse(dataString);
+      setData(dataJson);
+    }
+  }, []);
+
   useEffect(() => {
     // Themes begin
     am4core.useTheme(am4themes_animated);
@@ -22,7 +30,7 @@ const PieChart = () => {
     let chart = am4core.create("chartdiv", am4charts.PieChart3D);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-    const chartData = dataJson?.map((data) => ({
+    const chartData = data?.map((data) => ({
       country: data.sector,
       litres: data.share,
     }));

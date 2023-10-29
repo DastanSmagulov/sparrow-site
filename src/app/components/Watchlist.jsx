@@ -6,8 +6,16 @@ import Plus from "@/assets/plus";
 import Cross from "@/assets/cross";
 import Watchlist_Icon from "@/assets/watchlist";
 import { useEffect, useState } from "react";
+let key;
+let id;
 
 const Watchlist = () => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      key = localStorage.getItem("key");
+      id = localStorage.getItem("id");
+    }
+  }, []);
   const [data, setData] = useState(null);
   const [ticker, setTicker] = useState("");
   const [deleteId, setDeleteId] = useState(null);
@@ -20,7 +28,7 @@ const Watchlist = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Token " + localStorage.getItem("key"),
+          Authorization: "Token " + key,
         },
         body: JSON.stringify({
           ticker,
@@ -35,12 +43,12 @@ const Watchlist = () => {
   const closeWatchList = async (id_watchList) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1/traider/watch-list/${id_watchList}`,
+        `http://127.0.0.1/traider/watch-list/${id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Token " + localStorage.getItem("key"),
+            Authorization: "Token " + key,
           },
           body: JSON.stringify({
             ticker,
@@ -56,12 +64,12 @@ const Watchlist = () => {
   const fetchWatchList = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1/traider/${localStorage.getItem("id")}/watch-list/`,
+        `http://127.0.0.1/traider/${id}/watch-list/`,
         {
           method: "GET",
           headers: {
             // "Content-Type": "application/json",
-            Authorization: "Token " + localStorage.getItem("key"),
+            Authorization: "Token " + key,
           },
         }
       );
