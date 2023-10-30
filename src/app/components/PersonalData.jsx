@@ -100,6 +100,7 @@ const PersonalData = () => {
           <h3 className="mb-1">Номер карты</h3>
         </div>
         <div className="text-[#112D48] text-xs font-light text-right">
+          {console.log(data?.photo)}
           {data?.photo && (
             <Image
               className="float-right rounded-full"

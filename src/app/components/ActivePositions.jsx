@@ -17,7 +17,7 @@ const ActivePositions = () => {
 
   const [open_price, setOpenPrice] = useState("");
   const [amount, setAmount] = useState("");
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState("short");
   const [stop_loss, setStopLoss] = useState("");
   const [take_profit, setTakeProfit] = useState("");
   const [target_price, setTargetPrice] = useState("");
@@ -124,12 +124,33 @@ const ActivePositions = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     // Add your logic to close the modal here
+    setTicker("");
+    setOpenPrice("");
+    setAmount("");
+    setPosition("");
+    setStopLoss("");
+    setTakeProfit("");
+    setTargetPrice("");
     if (typeof window !== "undefined") {
       document.getElementById("my_modal").close();
     }
 
     // Call the fetchData function here or perform any other necessary actions
   };
+
+  function formatNumber(number) {
+    if (number < 1e3) {
+      return number;
+    } else if (number >= 1e3 && number < 1e6) {
+      return +(number / 1e3).toFixed(3) + "K";
+    } else if (number >= 1e6 && number < 1e9) {
+      return +(number / 1e6).toFixed(3) + "M";
+    } else if (number >= 1e9 && number < 1e12) {
+      return +(number / 1e9).toFixed(3) + "B";
+    } else if (number >= 1e12) {
+      return +(number / 1e12).toFixed(3) + "T";
+    }
+  }
 
   if (loading) {
     return (
@@ -346,18 +367,7 @@ const ActivePositions = () => {
       </table>
       <dialog id="my_modal" className="bg-transparent">
         <div className="modal-box max-w-[35rem] bg-white">
-          <form
-            method="dialog"
-            onSubmit={() => {
-              setPosition("");
-              setTicker("");
-              setOpenPrice("");
-              setAmount("");
-              setStopLoss("");
-              setTakeProfit("");
-              setTargetPrice("");
-            }}
-          >
+          <form method="dialog">
             <div className="flex">
               <div className="bg-[#B8F82F] border-black border-solid border-1 w-10 h-7 rounded-sm flex items-center mb-7 mt-1 rounded-md">
                 <div className="bg-[#112D48] rounded-full w-1 h-1 ml-1 mr-[6px]"></div>
@@ -384,38 +394,60 @@ const ActivePositions = () => {
               <div className="text-[#112D48] text-base font-light text-right">
                 <input
                   className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  value={ticker}
                   onChange={(e) => setTicker(e.target.value.replace(/,/g, "."))}
                 ></input>
                 <input
                   className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  value={open_price}
                   onChange={(e) =>
                     setOpenPrice(e.target.value.replace(/,/g, "."))
                   }
                 ></input>
                 <input
                   className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  value={amount}
                   onChange={(e) => setAmount(e.target.value.replace(/,/g, "."))}
                 ></input>
+                <select
+                  className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  id="position"
+                  name="position"
+                >
+                  <option
+                    onChange={(e) =>
+                      setPosition(e.target.value.replace(/,/g, "."))
+                    }
+                    value="short"
+                  >
+                    short
+                  </option>
+                  <option
+                    onChange={(e) =>
+                      setPosition(e.target.value.replace(/,/g, "."))
+                    }
+                    value="long"
+                  >
+                    long
+                  </option>
+                </select>
                 <input
                   className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
-                  onChange={(e) =>
-                    setPosition(e.target.value.replace(/,/g, "."))
-                  }
-                ></input>
-                <input
-                  className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  value={stop_loss}
                   onChange={(e) =>
                     setStopLoss(e.target.value.replace(/,/g, "."))
                   }
                 ></input>
                 <input
                   className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  value={take_profit}
                   onChange={(e) =>
                     setTakeProfit(e.target.value.replace(/,/g, "."))
                   }
                 ></input>
                 <input
                   className="bg-[#ECE6E1] w-40 h-7 border-solid border-black border-modal rounded-md mb-2"
+                  value={target_price}
                   onChange={(e) =>
                     setTargetPrice(e.target.value.replace(/,/g, "."))
                   }
